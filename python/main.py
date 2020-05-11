@@ -1,16 +1,11 @@
 """
-Database interaction
+Main module
 """
-import cx_Oracle
 
-user = "LAB"
-password = "LAB_PASSWD"
-db = "localhost/xe"
+import db
 
+hits_info = db.hits()
+parent_info = db.parent_distros()
+releases_info = db.releases()
 
-with cx_Oracle.connect(user, password, db, encoding="UTF-8") as connection:
-    cursor = connection.cursor()
-    hits = cursor.execute("SELECT * FROM HITS")
-    for hit in hits:
-        print(hit)
-    connection.commit()
+print(f"{hits_info=}", f"{parent_info=}", f"{releases_info=}", sep='\n\n')
