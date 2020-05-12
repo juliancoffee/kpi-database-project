@@ -2,3 +2,4 @@
 **/.mypy_cache/**/*
 **/venv/**/*
 **/.vim/**/*
+secrets.sh
