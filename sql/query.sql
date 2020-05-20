@@ -13,9 +13,9 @@ SELECT
     Distributions.Distro_Name
   , Count(Distrointeractions.Child_Id) AS Interactions
     FROM
-        Distrointeractions
+        Distributions
             JOIN
-            Distributions
+            Distrointeractions
             ON Distrointeractions.Parent_Id = Distributions.Distro_Id
     GROUP BY
         Distributions.Distro_Name;
