@@ -19,15 +19,9 @@ def selection(query: str):
 def hits():
     query = """
         SELECT
-            Distributions.Distro_Name
-          , Hits.Current_Hits
-            FROM
-                Distributions
-                    LEFT JOIN
-                    Hits
-                    ON Distributions.Distro_Id = Hits.Distro_Id
-
-
+            D.Distro_Name
+          , D.Current_Hits
+          FROM Distributions_Info D
     """
     return selection(query)
 
@@ -35,15 +29,11 @@ def hits():
 def parent_distros():
     query = """
         SELECT
-            Distributions.Distro_Name
-          , Count(Distrointeractions.Child_Id) AS Interactions
-            FROM
-                Distrointeractions
-                    JOIN
-                    Distributions
-                    ON Distrointeractions.Parent_Id = Distributions.Distro_Id
+            D.Distro_Name
+          , Count(D.Child_Id) AS Interactions
+          FROM Distributions_Info D
             GROUP BY
-                Distributions.Distro_Name
+                D.Distro_Name
     """
     return selection(query)
 
@@ -51,12 +41,12 @@ def parent_distros():
 def releases():
     query = """
         SELECT
-            EXTRACT(YEAR FROM Distributions.First_Release) AS Year
-          , count(Distributions.First_Release)             AS Releases
+            EXTRACT(YEAR FROM D.First_Release) AS Year
+          , count(D.First_Release)             AS Releases
             FROM
-                Distributions
+                Distributions_Info D
             GROUP BY
-                EXTRACT(YEAR FROM Distributions.First_Release)
+                EXTRACT(YEAR FROM D.First_Release)
             ORDER BY
                 Year
     """

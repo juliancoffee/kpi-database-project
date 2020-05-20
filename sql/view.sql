@@ -6,6 +6,7 @@ SELECT
     Distributions.Distro_Name
   , H.Current_Hits
   , Di.Child_Id
+  , Distributions.First_Release
     FROM
         Distributions
             LEFT JOIN
@@ -14,3 +15,4 @@ SELECT
             LEFT JOIN
             Hits H
             ON Distributions.Distro_Id = H.Distro_Id;
+
