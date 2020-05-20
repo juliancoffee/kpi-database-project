@@ -16,15 +16,17 @@ def second(pair: Tuple):
     return pair[1]
 
 
-def show(fig: go.Figure, name: str, out: str = "html"):
-    if out == "html":
-        output = f"../output/{name}.html"
+def show(fig: go.Figure, name: str, form: str = "html", out_path=""):
+    if form == "html":
+        output = os.path.join(out_path, f"{name}.html")
         fig.write_html(output)
         print(f"Written to {output}")
-    elif out == "web":
+    elif form == "web":
         py.plot(fig, filename=name)
+    elif form == "show":
+        fig.show()
     else:
-        print(f"Unsupported output {out}")
+        print(f"Unsupported output {form}")
 
 
 def plot_hits() -> go.Figure:
@@ -71,6 +73,6 @@ if __name__ == "__main__":
         username="juliancoffee",
         api_key=API_KEY
     )
-    show(plot_hits(), 'distro_hits', out="web")
-    show(plot_parents(), 'distro_parents', out="web")
-    show(plot_releases(), 'distro_releases', out="web")
+    show(plot_hits(), 'distro_hits', out="web", out_path="../output/")
+    show(plot_parents(), 'distro_parents', out="web", out_path="../output/")
+    show(plot_releases(), 'distro_releases', out="web", out_path="../output/")

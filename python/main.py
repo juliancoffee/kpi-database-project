@@ -2,7 +2,12 @@
 """
 Database interaction
 """
+import os
+
 import cx_Oracle
+import chart_studio
+
+from charts import show, plot_hits, plot_parents, plot_releases
 
 user = "LAB"
 password = "LAB_PASSWD"
@@ -59,3 +64,14 @@ parent_info = parent_distros()
 releases_info = releases()
 
 print(f"{hits_info=}", f"{parent_info=}", f"{releases_info=}", sep='\n\n')
+
+API_KEY = os.getenv("CHART_STUDIO_KEY")
+chart_studio.tools.set_credentials_file(
+    username="juliancoffee",
+    api_key=API_KEY
+)
+
+form = "show"
+show(plot_hits(), 'distro_hits', form=form)
+show(plot_parents(), 'distro_parents', form=form)
+show(plot_releases(), 'distro_releases', form=form)
