@@ -10,7 +10,7 @@ SELECT
     FROM
         Distributions
             LEFT JOIN
-            Distrointeractions Di
+            Distro_Interactions Di
             ON Distributions.Distro_Id = Di.Parent_Id
             LEFT JOIN
             Hits H
